@@ -149,7 +149,7 @@ class KNearestNeighbor(object):
         for i in range(num_test):
             # A list of length k storing the labels of the k nearest neighbors to
             # the ith test point.
-            closest_y = []
+            closest_y = np.array([])
             #########################################################################
             # TODO:                                                                 #
             # Use the distance matrix to find the k nearest neighbors of the ith    #
@@ -171,13 +171,13 @@ class KNearestNeighbor(object):
                 # insert sort
                 r = test[-1]
                 s = closest_y[-1]
-                j = -1
-                while len(test) >= -(j - 1) and r < test[j - 1]:
-                    test[j] = test[j - 1]
-                    closest_y[j] = closest_y[j - 1]
-                    j = j - 1
-                test[j] = r
-                closest_y[j] = s
+                m = -1
+                while len(test) >= -(m - 1) and r < test[m - 1]:
+                    test[m] = test[m - 1]
+                    closest_y[m] = closest_y[m - 1]
+                    m = m - 1
+                test[m] = r
+                closest_y[m] = s
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
             #########################################################################
             # TODO:                                                                 #
@@ -192,6 +192,7 @@ class KNearestNeighbor(object):
             max = 0
             for d, e in a.items():
                 if e > max:
+                    max = e
                     y_pred[i] = d
                 elif e == max:
                     if d < y_pred[i]:
